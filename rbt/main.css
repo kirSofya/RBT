@@ -1,0 +1,106 @@
+#h1 {
+	background: lightblue;
+	text-align: center;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+	font-size: 25px;
+}
+
+.button {
+	background: lightblue;
+	border: 1px solid darkgray;
+	height: 30px;
+	width: 100px;
+	/*padding: 7px 1.5%;
+	margin-bottom: 5px;*/
+}
+
+.vals {
+	/*padding: 3px 10px;*/
+	width: 150px;
+}
+
+#printHeight {
+	border: 1px solid darkgray;
+	height: 40px;
+	width: 40px;
+	position: relative;
+	top: -36px;
+	left: 120px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+}
+
+#printVals {
+	border: 1px solid darkgray;
+	height: 40px;
+	width: 190px;
+	position: relative;
+	top: -36px;
+	left: 120px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+}
+
+.tree {
+	border: 1px solid darkgray;
+	height: 500px;
+	width: 1095px;
+	/*width: 100px;*/
+	position: absolute;
+	right: 10px;
+	top: 95px;
+}
+
+.circleR {
+	display: inline-block;
+	border: 1px solid darkgray;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	margin: 10px;
+	background-color: red;
+	color: black;
+}
+
+.circleB {
+	display: inline-block;
+	border: 1px solid darkgray;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	margin: 10px;
+	background-color: black;
+	position: relative;
+	top: -400px;
+	right: -800px;
+	color: white;
+}
+
+.id {
+	border: 1px solid darkgray;
+	height: 40px;
+	width: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
