@@ -19,8 +19,6 @@ var Groot = null;
 var Gx = 900;
 var Gy = -370;
 
-
-
 /*class RBT {
   constructor() {
     this.root = null;
@@ -31,99 +29,71 @@ var Gy = -370;
   //}
 })*/
 
-  function amount(node, level) {
-    var i = 0; cnt = 0;
-    if (node == 0) {
-      return 0;
-    } else if (i == level) {
-      return node.value;
-    } else {
-      i++;
-      if (node.left) {
-        cnt += amount(node.left, level);
-      }
-      if (node.right) {
-        cnt += amount(node.right, level);
-      }
-    }
-    return cnt;
+v = 40;
+radius = 20;
+
+function draw() {
+  var canvas = document.getElementById('drawLine');
+  var context = canvas.getContext("2d");
+
+  // Reset size will clear the canvas, but not for IE9
+  canvas.width = window.innerWidth - 100;
+  canvas.height = window.innerHeight - 20;        
+  context.clearRect(0, 0, canvas.width, canvas.height); // For IE 9
+
+  context.font = "16px times new roman";
+  context.strokeStyle = "black";
+        
+  if (!Groot) {
+    context.fillText("введите значение", canvas.width / 2 - 50, 15);  
+  } else {
+    x = canvas.width / 2;
+    y = 25;
+          
+    drawTree(context, x, y, radius, Groot, canvas.width / 7);
+  }
+  context.stroke();
+}
+
+function drawTree(context, x, y, radius, root, h) {
+  if (root.color == "red") {
+    context.fillStyle="#f03526";   
+  } else {
+    context.fillStyle="black";
   }
 
-  var gy = -660;
-  function levels(node) {
-    if (!node) {
-      return;
-    }
-    var x = 900;
-    var y = gy;
-    var f = 0;
-    var queue = [];
-    queue.push(node);
-    var curr = null;
-    while(queue.length) {
-      f++;
-      var cnt = 1;
-      var counter = 1;
-      var x_p = x, y_p = y;
-      while (queue.length || cnt > 0) {
-        curr = queue.pop();
-        if (curr != Groot) {
-          cnt = amount(Groot, f);
-          counter = cnt;
-        }
-        console.log(cnt);
-        console.log(curr.value);
+  context.beginPath();
+  context.arc(x, y, radius, 0, Math.PI * 2, false);  
+  context.closePath();
+  context.fill();
 
-        if (curr != Groot && curr.value < curr.parent.value) {
-          x = x - 45;
-        }
+  context.fillStyle="white";
+  context.fillText(root.value + "", x - 3, y + 5);
 
-        if (curr != Groot && curr.value > curr.parent.value) {
-          x = x + 45;
-        }
-
-        if (curr.color == "red") {
-          var res = '<div id="tag" style="text-align:center; border: 1px solid red; height: 20px; width: 20px; border-radius: 50%; opacity: 1; color: red; position: relative; right:'
-          + (-x) + 'px; top:' + (y) + 'px;">' + curr.value + '</div> ';
-        } else {
-          var res = '<div id="tag" style="text-align:center; border: 1px solid black; height: 20px; width: 20px; border-radius: 50%; opacity: 1; color: black; position: relative; right:'
-          + (-x) + 'px; top:' + (y) + 'px;">' + curr.value + '</div> ';        
-        }
-        var div = document.createElement("div");
-        //div.id = tag;
-        //div.addEventListener("click", insertValue);
-        //document.body.appendChild(div);
-        div.innerHTML = res;
-        document.getElementsByTagName('body')[0].appendChild(div);
-        //lineDraw(x_p, y_p, x, y);
-        //drawMyLine(x, y, x_p, x_p);
-
-        x = x + 45;
-        cnt--;
-      }
-      y = y + 30;
-      x = x - counter * 45;
-
-      if(curr.right) {
-        queue.push(curr.right);
-      }
-
-      if (curr.left) {
-        queue.push(curr.left);
-      }
-    }
-    gy = gy + 70;
+  if (root.left) {
+    connectTwoCircles(context, x, y, x - h, y + v);
+    context.moveTo(x - h + radius, y + v); 
+    drawTree(context, x - h, y + v, radius, root.left, h / 2);
   }
-
-  /*let canvas = document.getElementById('drawLine');
-  let ctx = canvas.getContext('2d');
-  function drawMyLine(x,y,x_p,x_p){
-  ctx.moveTo(0,400);
-  ctx.lineTo(200,700);
-  ctx.strokeStyle = "red"; 
-  ctx.lineWidth = "10"; 
-  ctx.stroke(); 
-}*/
+       
+  if (root.right) {
+    connectTwoCircles(context, x, y, x + h, y + v);
+    context.moveTo(x + h + radius, y + v); 
+    drawTree(context, x + h, y + v, radius, root.right, h / 2);
+  }
+}
+      
+function connectTwoCircles(context, x1, y1, x2, y2) {
+  context.fillStyle="black";
+  var d = Math.sqrt(v * v + (x2 - x1) * (x2 - x1));
+  var x11 = x1 - radius * (x1 - x2) / d;
+  var y11 = y1 - radius * (y1 - y2) / d;
+  var x21 = x2 + radius * (x1 - x2) / d;
+  var y21 = y2 + radius * (y1 - y2) / d;
+  context.moveTo(x11, y11);
+  context.lineTo(x21, y21);
+  context.stroke();
+} 
 
   function getColor(node) {
     if (!node) {
@@ -170,9 +140,8 @@ var Gy = -370;
     var newNode = new Node(value);
     Groot = insertBST(Groot, newNode);
     fixInsertRBTree(newNode);
-    //clearBox("tag", newNode);
-    levels(Groot);
-    //clearBox("tag", newNode);
+    //levels(Groot);
+    draw();
 
     console.log("insertValue end " + newNode.color);
     console.log("root " + Groot.value);
@@ -413,7 +382,8 @@ var Gy = -370;
 
     var node = deleteBST(Groot, value);
     fixDeleteRBTree(node);
-    levels(Groot);
+    //levels(Groot);
+    draw();
 
     console.log("delteValue end " + value);
   }
