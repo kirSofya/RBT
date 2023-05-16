@@ -53,39 +53,14 @@
 	font-size: 20px;
 }
 
-#tree {
-	border: 1px solid darkgray;
-	height: 1000px;
-	width: 1000px;
+/*#tree {
+	/*border: 1px solid darkgray;*/
+	height: 100%;
+	width: 75%;
 	position: absolute;
 	right: 10px;
 	top: 95px;
-}
-
-.circleR {
-	display: inline-block;
-	border: 1px solid darkgray;
-	height: 40px;
-	width: 40px;
-	border-radius: 50%;
-	margin: 10px;
-	background-color: red;
-	color: black;
-}
-
-.circleB {
-	display: inline-block;
-	border: 1px solid darkgray;
-	height: 40px;
-	width: 40px;
-	border-radius: 50%;
-	margin: 10px;
-	background-color: black;
-	position: relative;
-	top: -400px;
-	right: -800px;
-	color: white;
-}
+}*/
 
 .tag {
 	color: blue;
@@ -101,7 +76,9 @@
   position: absolute;
 }
 
-#draw {
-    width: 600px;
-    height: 300px;
+#drawLine {
+    position: relative;
+	top: -400px;
+	right: -300px;
+	/*border: 1px solid darkgray;*/
 }
