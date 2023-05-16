@@ -16,16 +16,114 @@ class Node {
 }
 
 var Groot = null;
+var Gx = 900;
+var Gy = -370;
+
 
 
 /*class RBT {
   constructor() {
     this.root = null;
-  }*/
+  }
 
   //function RBTree() {
     //this.root = null;
   //}
+})*/
+
+  function amount(node, level) {
+    var i = 0; cnt = 0;
+    if (node == 0) {
+      return 0;
+    } else if (i == level) {
+      return node.value;
+    } else {
+      i++;
+      if (node.left) {
+        cnt += amount(node.left, level);
+      }
+      if (node.right) {
+        cnt += amount(node.right, level);
+      }
+    }
+    return cnt;
+  }
+
+  var gy = -660;
+  function levels(node) {
+    if (!node) {
+      return;
+    }
+    var x = 900;
+    var y = gy;
+    var f = 0;
+    var queue = [];
+    queue.push(node);
+    var curr = null;
+    while(queue.length) {
+      f++;
+      var cnt = 1;
+      var counter = 1;
+      var x_p = x, y_p = y;
+      while (queue.length || cnt > 0) {
+        curr = queue.pop();
+        if (curr != Groot) {
+          cnt = amount(Groot, f);
+          counter = cnt;
+        }
+        console.log(cnt);
+        console.log(curr.value);
+
+        if (curr != Groot && curr.value < curr.parent.value) {
+          x = x - 45;
+        }
+
+        if (curr != Groot && curr.value > curr.parent.value) {
+          x = x + 45;
+        }
+
+        if (curr.color == "red") {
+          var res = '<div id="tag" style="text-align:center; border: 1px solid red; height: 20px; width: 20px; border-radius: 50%; opacity: 1; color: red; position: relative; right:'
+          + (-x) + 'px; top:' + (y) + 'px;">' + curr.value + '</div> ';
+        } else {
+          var res = '<div id="tag" style="text-align:center; border: 1px solid black; height: 20px; width: 20px; border-radius: 50%; opacity: 1; color: black; position: relative; right:'
+          + (-x) + 'px; top:' + (y) + 'px;">' + curr.value + '</div> ';        
+        }
+        var div = document.createElement("div");
+        //div.id = tag;
+        //div.addEventListener("click", insertValue);
+        //document.body.appendChild(div);
+        div.innerHTML = res;
+        document.getElementsByTagName('body')[0].appendChild(div);
+        //lineDraw(x_p, y_p, x, y);
+        //drawMyLine(x, y, x_p, x_p);
+
+        x = x + 45;
+        cnt--;
+      }
+      y = y + 30;
+      x = x - counter * 45;
+
+      if(curr.right) {
+        queue.push(curr.right);
+      }
+
+      if (curr.left) {
+        queue.push(curr.left);
+      }
+    }
+    gy = gy + 70;
+  }
+
+  /*let canvas = document.getElementById('drawLine');
+  let ctx = canvas.getContext('2d');
+  function drawMyLine(x,y,x_p,x_p){
+  ctx.moveTo(0,400);
+  ctx.lineTo(200,700);
+  ctx.strokeStyle = "red"; 
+  ctx.lineWidth = "10"; 
+  ctx.stroke(); 
+}*/
 
   function getColor(node) {
     if (!node) {
@@ -44,8 +142,6 @@ var Groot = null;
 
   function insertBST(node, ptr) {
     if(!node) {
-      //ptr.id = randId();
-      //drawNode(ptr, ptr.id);
       return ptr;
     }
     if(ptr.value < node.value) {
@@ -74,12 +170,13 @@ var Groot = null;
     var newNode = new Node(value);
     Groot = insertBST(Groot, newNode);
     fixInsertRBTree(newNode);
+    //clearBox("tag", newNode);
+    levels(Groot);
+    //clearBox("tag", newNode);
 
     console.log("insertValue end " + newNode.color);
     console.log("root " + Groot.value);
   }
-
-  const randId = () => Math.random().toString(36).substr(2, 5);
 
   function rotateLeft(ptr) {
     var right_child = ptr.right;
@@ -168,7 +265,6 @@ var Groot = null;
       }
     }
     setColor(Groot, "black");
-    forLevel(ptr);
   }
 
   function fixDeleteRBTree(node) {
@@ -208,7 +304,7 @@ var Groot = null;
       var parent = null;
       var ptr = node;
       setColor(ptr, "double black");
-      while (ptr != this.root && getColor(ptr) == "double black") {
+      while (ptr != Groot && getColor(ptr) == "double black") {
         parent = ptr.parent;
         if (ptr == parent.left) {
           sibling = parent.right;
@@ -308,7 +404,7 @@ var Groot = null;
     } else if (value < -100 || value > 100) {
       document.getElementById("errord").innerHTML = "недопустимое значение";
       return;
-    } else if (!findValue(value)) {
+    } else if (!findValueRec(Groot, value)) {
       document.getElementById("errord").innerHTML = "в дереве нет данного элемента";
       return;
     }
@@ -317,6 +413,7 @@ var Groot = null;
 
     var node = deleteBST(Groot, value);
     fixDeleteRBTree(node);
+    levels(Groot);
 
     console.log("delteValue end " + value);
   }
@@ -341,12 +438,12 @@ var Groot = null;
         arr[j] = ' ';
     }
     i = 0;
+
     printRBTree(Groot);
-    /*var inputs = form.getElementById('printVals');
-    for (var j = 0; j < inputs.length; j++) {
-      inputs[j].innerHTML = '';
-    }*/
     document.getElementById("printVals").innerHTML = arr.join(' ');
+    if (!Groot) {
+      document.getElementById("printVals").innerHTML = "no elements";
+    }
   }
 
   function preorderBST(ptr) {
@@ -396,7 +493,11 @@ var Groot = null;
 
   function getHeight() {
     event.preventDefault();
-    console.log("root at height " + Groot.value);
+    //console.log("root at height " + Groot.value);
+    if (!Groot) {
+      document.getElementById("printHeight").innerHTML = 0;
+      return;
+    }
     var height = getHeightRec(Groot);
     document.getElementById("printHeight").innerHTML = height;
   }
@@ -431,40 +532,5 @@ var Groot = null;
       document.getElementById("ans").innerHTML = "true";
     } else {
       document.getElementById("ans").innerHTML = "false";
-    }
-  }
-//}
-
-  function printLevel(node, level, id) {
-    if(!node) {
-      return false;
-    }
-    if (level == 1) {
-      /*if (ptr.color == "black") {
-        let div = document.createElement("div");
-        div.className = id;
-        //div.text = ptr.value;
-        div.addEventListener("click", insertValue);
-        document.body.appendChild(div);
-      } else if (ptr.color == "red") {
-        let div = document.createElement("div");
-        div.className = id;
-        //div. = ptr.value;
-        div.addEventListener("click", insertValue);
-        document.body.appendChild(div);
-      }*/
-      //var str = 
-      document.getElementById("id").innerHTML = node.value;
-    }
-    var left = printLevel(node.left, level - 1);
-    var right = printLevel(node.right, level - 1);
-
-    return left || right;
-  }
-
-  function forLevel(node) {
-    var level = 1;
-    while (printLevel(node, level, level)) {
-      level++;
     }
   }
