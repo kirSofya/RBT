@@ -118,6 +118,65 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
       return ptr;
     }
     var x1 = ptr.element, x2 = node.element;
+
+    if (x1 < 0 && x2 < 0) {
+      if (x1 <= -10 && x1 > -20 && x2 <= -2) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -20 && x1 > -30 && x2 <= -3) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -30 && x1 > -40 && x2 <= -4) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -40 && x1 > -50 && x2 <= -5) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -50 && x1 > -60 && x2 <= -6) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -60 && x1 > -70 && x2 <= -7) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -70 && x1 > -80 && x2 <= -8) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x1 <= -80 && x1 > -90 && x2 <= -9) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } else if (x2 <= -10 && x2 > -20 && x1 <= -2) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -20 && x2 > -30 && x1 <= -3) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -30 && x2 > -40 && x1 <= -4) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -40 && x2 > -50 && x1 <= -5) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -50 && x2 > -60 && x1 <= -6) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -60 && x2 > -70 && x1 <= -7) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -70 && x2 > -80 && x1 <= -8) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x2 <= -80 && x2 > -80 && x1 <= -9) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x1 < x2) {
+        node.right = insertBST(node.right, ptr);
+        node.right.parent = node;
+      } else if (x1 > x2) {
+        node.left = insertBST(node.left, ptr);
+        node.left.parent = node;
+      } 
+    } else {
+
     if (x1 >= 10 && x1 < 20 && x2 >= 2) {
       node.right = insertBST(node.right, ptr);
       node.right.parent = node;
@@ -173,6 +232,7 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
       node.right = insertBST(node.right, ptr);
       node.right.parent = node;
     }
+  }
     return node;
   }
 
@@ -185,6 +245,9 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     } else if (value < -100 || value > 100) {
       document.getElementById("error").innerHTML = "недопустимое значение";
       return;
+    }
+    if (value < 0) {
+      console.log("i<0 " + value);
     }
 
     console.log("insertValue begin" + value);
