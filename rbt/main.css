@@ -7,6 +7,14 @@
 	font-size: 25px;
 }
 
+.block {
+  border:solid 1px;
+  position:absolute;
+  text-align:center;
+  width:80px;
+  height:50px;
+}
+
 .button {
 	background: lightblue;
 	border: 1px solid darkgray;
@@ -45,11 +53,10 @@
 	font-size: 20px;
 }
 
-.tree {
+#tree {
 	border: 1px solid darkgray;
-	height: 500px;
-	width: 1095px;
-	/*width: 100px;*/
+	height: 1000px;
+	width: 1000px;
 	position: absolute;
 	right: 10px;
 	top: 95px;
@@ -80,27 +87,21 @@
 	color: white;
 }
 
-.id {
+.tag {
+	color: blue;
 	border: 1px solid darkgray;
 	height: 40px;
 	width: 40px;
 }
 
+.element {
+  width: 50px;
+  height: 50px;
+  background: black;
+  position: absolute;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#draw {
+    width: 600px;
+    height: 300px;
+}
