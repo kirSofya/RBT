@@ -361,12 +361,12 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     }
 
     if(getColor(node) == "red" || getColor(node.left) == "red" || getColor(node.right) == "red") {
-      var child;
-      if (node.left) {
+      var child = node.left ? node.left : node.right;
+      /*if (node.left) {
         child = node.left;
       } else {
         child = node.right;
-      }
+      }*/
 
       if (node == node.parent.left) {
         node.parent.left = child;
@@ -461,6 +461,7 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
   }
 
   function deleteBST(node, value) {
+    console.log("delteBst");
     if (!node) {
       return node;
     }
@@ -475,8 +476,9 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     }
 
     var tmp = minValueNode(node.right);
+    console.log("tmp " + tmp.value);
     node.value = tmp.value;
-    return deleteBST(node.right, tmp.data);
+    return deleteBST(node.right, tmp.value);
   }
 
   function deleteValue() {
@@ -496,8 +498,8 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     console.log("delteValue begin " + value);
 
     var node = deleteBST(Groot, value);
+    //draw();
     fixDeleteRBTree(node);
-    //levels(Groot);
     draw();
 
     console.log("delteValue end " + value);
