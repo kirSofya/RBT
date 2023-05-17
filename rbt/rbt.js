@@ -17,21 +17,6 @@ class Node {
 }
 
 var Groot = null;
-var Gx = 900;
-var Gy = -370;
-
-
-
-/*class RBT {
-  constructor() {
-    this.root = null;
-  }
-
-  //function RBTree() {
-    //this.root = null;
-  //}
-})*/
-
 v = 40;
 radius = 20;
 
@@ -39,10 +24,9 @@ function draw() {
   var canvas = document.getElementById('drawLine');
   var context = canvas.getContext("2d");
 
-  // Reset size will clear the canvas, but not for IE9
   canvas.width = window.innerWidth - 100;
   canvas.height = window.innerHeight - 20;        
-  context.clearRect(0, 0, canvas.width, canvas.height); // For IE 9
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   context.font = "16px times new roman";
   context.strokeStyle = "black";
@@ -110,144 +94,37 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
       return;
     }
     node.color = color;
-    //console.log("setColor " + color);
   }
 
   function insertBST(node, ptr) {
     if(!node) {
       return ptr;
     }
-    var x1 = ptr.element, x2 = node.element;
 
-    if (x1 < 0 && x2 < 0) {
-      if (x1 <= -10 && x1 > -20 && x2 <= -2) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -20 && x1 > -30 && x2 <= -3) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -30 && x1 > -40 && x2 <= -4) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -40 && x1 > -50 && x2 <= -5) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -50 && x1 > -60 && x2 <= -6) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -60 && x1 > -70 && x2 <= -7) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -70 && x1 > -80 && x2 <= -8) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x1 <= -80 && x1 > -90 && x2 <= -9) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } else if (x2 <= -10 && x2 > -20 && x1 <= -2) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -20 && x2 > -30 && x1 <= -3) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -30 && x2 > -40 && x1 <= -4) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -40 && x2 > -50 && x1 <= -5) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -50 && x2 > -60 && x1 <= -6) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -60 && x2 > -70 && x1 <= -7) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -70 && x2 > -80 && x1 <= -8) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x2 <= -80 && x2 > -80 && x1 <= -9) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x1 < x2) {
-        node.right = insertBST(node.right, ptr);
-        node.right.parent = node;
-      } else if (x1 > x2) {
-        node.left = insertBST(node.left, ptr);
-        node.left.parent = node;
-      } 
-    } else {
-
-    if (x1 >= 10 && x1 < 20 && x2 >= 2) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 20 && x1 < 30 && x2 >= 3) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 30 && x1 < 40 && x2 >= 4) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 40 && x1 < 50 && x2 >= 5) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 50 && x1 < 60 && x2 >= 6) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 60 && x1 < 70 && x2 >= 7) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 70 && x1 < 80 && x2 >= 8) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x1 >= 80 && x1 < 90 && x2 >= 9) {
-      node.right = insertBST(node.right, ptr);
-      node.right.parent = node;
-    } else if (x2 >= 10 && x2 < 20 && x1 >= 2) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 20 && x2 < 30 && x1 >= 3) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 30 && x2 < 40 && x1 >= 4) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 40 && x2 < 50 && x1 >= 5) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 50 && x2 < 60 && x1 >= 6) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 60 && x2 < 70 && x1 >= 7) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 70 && x2 < 80 && x1 >= 8) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x2 >= 80 && x2 < 90 && x1 >= 9) {
-      node.left = insertBST(node.left, ptr);
-      node.left.parent = node;
-    } else if (x1 < x2) {
+    var x1 = Number(ptr.element), x2 = Number(node.element);
+    if (x1 < x2) {
       node.left = insertBST(node.left, ptr);
       node.left.parent = node;
     } else if (x1 > x2) {
       node.right = insertBST(node.right, ptr);
       node.right.parent = node;
     }
-  }
     return node;
   }
 
   function insertValue() {
     event.preventDefault();
     var value = document.getElementById("input").in.value;
+    document.getElementById("error").innerHTML = "";
     if (value == "") {
       document.getElementById("error").innerHTML = "введите значение";
       return;
-    } else if (value < -100 || value > 100) {
+    } else if (value <= -100 || value >= 100) {
       document.getElementById("error").innerHTML = "недопустимое значение";
       return;
-    }
-    if (value < 0) {
-      console.log("i<0 " + value);
+    } else if (findValueRec(Groot, value)) {
+      document.getElementById("error").innerHTML = "в дереве уже есть данный элемент";
+      return;
     }
 
     console.log("insertValue begin" + value);
@@ -355,19 +232,26 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     if(!node) {
       return;
     }
-    if (node == Groot) {
+
+    if (node == Groot && !node.right && !node.left) {
+      console.log("no " + node.value);
       Groot = null;
+      return;
+    }
+
+    if (node == Groot && (!node.right || !node.left)) {
+      if (!node.right) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+      Groot = node;
+      console.log("yes " + node.value);
       return;
     }
 
     if(getColor(node) == "red" || getColor(node.left) == "red" || getColor(node.right) == "red") {
       var child = node.left ? node.left : node.right;
-      /*if (node.left) {
-        child = node.left;
-      } else {
-        child = node.right;
-      }*/
-
       if (node == node.parent.left) {
         node.parent.left = child;
         if (child) {
@@ -465,10 +349,10 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     if (!node) {
       return node;
     }
-    if (value < node.value) {
+    if (value < Number(node.value)) {
       return deleteBST(node.left, value);
     }
-    if (value > node.value) {
+    if (value > Number(node.value)) {
       return deleteBST(node.right, value);
     }
     if (!node.left || !node.right) {
@@ -484,6 +368,7 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
   function deleteValue() {
     event.preventDefault();
     var value = document.getElementById("delete").del.value;
+    document.getElementById("errord").innerHTML = "";
     if (value == "") {
       document.getElementById("errord").innerHTML = "введите значение";
       return;
@@ -498,7 +383,6 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     console.log("delteValue begin " + value);
 
     var node = deleteBST(Groot, value);
-    //draw();
     fixDeleteRBTree(node);
     draw();
 
@@ -533,28 +417,6 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     }
   }
 
-  function preorderBST(ptr) {
-    if (!ptr) {
-      return;
-    }
-    console.log(ptr.value + " " + ptr.color);
-    preorderBST(ptr.left);
-    preorderBST(ptr.right);
-  }
-
-  function preorder() {
-    preorderBST(Groot);
-    console.log("------");
-  }
-
-  function maxValueNode(node) {
-    var ptr = node;
-    while(ptr.right) {
-      ptr = ptr.right;
-    }
-    return ptr;
-  }
-
   function minValueNode(node) {
     var ptr = node;
     while(ptr.left) {
@@ -580,7 +442,6 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
 
   function getHeight() {
     event.preventDefault();
-    //console.log("root at height " + Groot.value);
     if (!Groot) {
       document.getElementById("printHeight").innerHTML = 0;
       return;
@@ -593,13 +454,13 @@ function connectTwoCircles(context, x1, y1, x2, y2) {
     if (node == null) {
       return null;
     }
-    if (value == node.value) {
+    if (value == Number(node.value)) {
       return node;
     }
-    if (value < node.value) {
+    if (value < Number(node.value)) {
       return findValueRec(node.left, value);
     }
-    if (value > node.value) {
+    if (value > Number(node.value)) {
       return findValueRec(node.right, value);
     }
   }
